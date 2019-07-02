@@ -1,33 +1,54 @@
 package br.gov.serpro.demo;
 
-import javax.validation.Validator;
-import javax.validation.constraints.AssertTrue;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.gov.serpro.demo.validador.AbstractValidacaoNegocio;
+import br.gov.serpro.demo.validador.ValidacaoNegocioException;
+import br.gov.serpro.demo.validador.Validador;
+import br.gov.serpro.demo.validador.ViolacaoRestricao;
+
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
-	@Autowired
-	private Validator validator;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
+	
+	@Autowired
+	private Validador validador;
 
 	@Override
 	public void run(String... args) throws Exception {
-		DemoService service = new DemoService();
-		validator.validate(service);
+		try {
+			validador.validar(new DemoValidacaoNegocio());
+		} catch (ValidacaoNegocioException e) {
+			e.getViolacoes().forEach(System.err::println);
+		}
 	}
 }
 
-class DemoService {
-	@AssertTrue
-	public boolean isDoSomeStuff() {
-		System.out.println("isDoSomeStuff called");
-		return true;
+class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
+	public List<Supplier<ViolacaoRestricao>> validadores() {
+		return Arrays.asList(
+			this::validarRegraNegocio01,
+			this::validarRegraNegocio02);
+	}
+	
+	public ViolacaoRestricao validarRegraNegocio01() {
+		// regra 1
+		return ViolacaoRestricao.of("erro1");
+	}
+	
+	public ViolacaoRestricao validarRegraNegocio02() {
+		// regra 1
+		return ViolacaoRestricao.of("erro2");
 	}
 }
