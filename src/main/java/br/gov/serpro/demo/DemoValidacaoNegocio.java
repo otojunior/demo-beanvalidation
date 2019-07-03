@@ -22,6 +22,7 @@ import br.gov.serpro.demo.validador.ViolacaoRestricao;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
+	@Override
 	public List<Supplier<Optional<ViolacaoRestricao>>> validadores() {
 		return Arrays.asList(
 			this::validarRegraNegocio01,
