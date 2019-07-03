@@ -5,9 +5,7 @@ package br.gov.serpro.demo.validador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -18,14 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Validador {
 	public void validar(ValidacaoNegocio obj) {
-		List<Optional<ViolacaoRestricao>> violacoes = obj.validar();
-		List<ViolacaoRestricao> filtrada = violacoes
-			.stream()
-			.filter(Optional::isPresent)
-			.map(Optional::get)
-			.collect(Collectors.toList());
+		List<ViolacaoRestricao> filtrada = new ArrayList<>();
+		obj.validar().forEach(filtrada::addAll);
 		
-		if (!violacoes.isEmpty()) {
+		if (!filtrada.isEmpty()) {
 			throw new ValidacaoNegocioException(filtrada);
 		}
 	}
@@ -35,8 +29,8 @@ public class Validador {
 	 * @param validadores
 	 * @return
 	 */
-	public static List<Optional<ViolacaoRestricao>> validadores(List<Supplier<Optional<ViolacaoRestricao>>> validadores) {
-		List<Optional<ViolacaoRestricao>> violacoes = new ArrayList<>();
+	public static List<List<ViolacaoRestricao>> validadores(List<Supplier<List<ViolacaoRestricao>>> validadores) {
+		List<List<ViolacaoRestricao>> violacoes = new ArrayList<>();
 		validadores.forEach(supplier -> {
 			violacoes.add(supplier.get());
 		});

@@ -4,7 +4,6 @@
 package br.gov.serpro.demo.validador;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -13,6 +12,6 @@ import java.util.function.Supplier;
  *
  */
 public interface ValidacaoNegocio {
-	public List<Optional<ViolacaoRestricao>> validar();
-	public List<Supplier<Optional<ViolacaoRestricao>>> validadores();
+	public List<List<ViolacaoRestricao>> validar();
+	public List<Supplier<List<ViolacaoRestricao>>> validadores();
 }

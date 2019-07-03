@@ -4,8 +4,8 @@
 package br.gov.serpro.demo;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -23,7 +23,7 @@ import br.gov.serpro.demo.validador.ViolacaoRestricao;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
 	@Override
-	public List<Supplier<Optional<ViolacaoRestricao>>> validadores() {
+	public List<Supplier<List<ViolacaoRestricao>>> validadores() {
 		return Arrays.asList(
 			this::validarRegraNegocio01,
 			this::validarRegraNegocio02);
@@ -33,17 +33,17 @@ class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
 	 * 
 	 * @return
 	 */
-	public Optional<ViolacaoRestricao> validarRegraNegocio01() {
+	public List<ViolacaoRestricao> validarRegraNegocio01() {
 		// regra 1
-		return Optional.of(ViolacaoRestricao.of("erro1"));
+		return Collections.singletonList(ViolacaoRestricao.of("erro1"));
 	}
 	
 	/**
 	 * 
 	 * @return
 	 */
-	public  Optional<ViolacaoRestricao> validarRegraNegocio02() {
+	public  List<ViolacaoRestricao> validarRegraNegocio02() {
 		// regra 1
-		return Optional.of(ViolacaoRestricao.of("erro2"));
+		return Collections.singletonList(ViolacaoRestricao.of("erro2"));
 	}
 }

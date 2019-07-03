@@ -4,7 +4,6 @@
 package br.gov.serpro.demo.validador;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -12,11 +11,16 @@ import java.util.function.Supplier;
  *
  */
 public abstract class AbstractValidacaoNegocio implements ValidacaoNegocio {
+	/**
+	 * 
+	 */
+	public abstract List<Supplier<List<ViolacaoRestricao>>> validadores();
 	
-	public abstract List<Supplier<Optional<ViolacaoRestricao>>> validadores();
-	
+	/**
+	 * 
+	 */
 	@Override
-	public List<Optional<ViolacaoRestricao>> validar() {
+	public List<List<ViolacaoRestricao>> validar() {
 		return Validador.validadores(validadores());
 	}
 }
