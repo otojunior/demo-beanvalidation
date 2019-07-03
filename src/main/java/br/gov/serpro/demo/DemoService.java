@@ -21,7 +21,7 @@ public class DemoService {
 	/**
 	 * 
 	 */
-	public void executar() {
-		validador.validar(ctx.getBean(DemoValidacaoNegocio.class));
+	public void executar(DemoEntidade entidade) {
+		validador.validar(ctx.getBean(DemoValidacaoNegocio.class, entidade));
 	}
 }

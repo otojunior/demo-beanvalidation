@@ -31,7 +31,7 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		try {
-			service.executar();
+			service.executar(new DemoEntidade());
 		} catch (ValidacaoNegocioException e) {
 			e.getViolacoes().forEach(System.err::println);
 		}

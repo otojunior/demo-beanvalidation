@@ -21,7 +21,21 @@ import br.gov.serpro.demo.validador.ViolacaoRestricao;
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
+public class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
+	@SuppressWarnings("unused")
+	private DemoEntidade entidade;
+	
+	/**
+	 * 
+	 * @param entidade
+	 */
+	public DemoValidacaoNegocio(DemoEntidade entidade) {
+		this.entidade = entidade;
+	}
+	
+	/**
+	 * 
+	 */
 	@Override
 	public List<Supplier<List<ViolacaoRestricao>>> validadores() {
 		return Arrays.asList(
