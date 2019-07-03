@@ -14,9 +14,6 @@ import lombok.Getter;
  */
 @Getter
 public class ViolacaoRestricao {
-	public static final ViolacaoRestricao VALIDACAO_OK = criarValidacaoOk();
-	
-	private boolean violacao;
 	private String mensagem;
 	private List<String> argumentos;
 
@@ -25,7 +22,6 @@ public class ViolacaoRestricao {
 	 * @param argumentos
 	 */
 	private ViolacaoRestricao(String mensagem, List<String> argumentos) {
-		this.violacao = true;
 		this.mensagem = mensagem;
 		this.argumentos = argumentos;
 	}
@@ -46,16 +42,6 @@ public class ViolacaoRestricao {
 	 */
 	public static ViolacaoRestricao of(String mensagem, List<String> argumentos) {
 		return new ViolacaoRestricao(mensagem, argumentos);
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	private static ViolacaoRestricao criarValidacaoOk() {
-		ViolacaoRestricao validacaoOk = of("");
-		validacaoOk.violacao = false;
-		return validacaoOk;
 	}
 	
 	@Override

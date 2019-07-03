@@ -2,6 +2,7 @@ package br.gov.serpro.demo;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +37,19 @@ public class DemoApplication implements CommandLineRunner {
 }
 
 class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
-	public List<Supplier<ViolacaoRestricao>> validadores() {
+	public List<Supplier<Optional<ViolacaoRestricao>>> validadores() {
 		return Arrays.asList(
 			this::validarRegraNegocio01,
 			this::validarRegraNegocio02);
 	}
 	
-	public ViolacaoRestricao validarRegraNegocio01() {
+	public Optional<ViolacaoRestricao> validarRegraNegocio01() {
 		// regra 1
-		return ViolacaoRestricao.of("erro1");
+		return Optional.of(ViolacaoRestricao.of("erro1"));
 	}
 	
-	public ViolacaoRestricao validarRegraNegocio02() {
+	public  Optional<ViolacaoRestricao> validarRegraNegocio02() {
 		// regra 1
-		return ViolacaoRestricao.of("erro2");
+		return Optional.of(ViolacaoRestricao.of("erro2"));
 	}
 }

@@ -4,6 +4,7 @@
 package br.gov.serpro.demo.validador;
 
 import java.util.List;
+import java.util.Optional;
 
 import lombok.Getter;
 
@@ -15,13 +16,13 @@ import lombok.Getter;
 public class ValidacaoNegocioException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
-	private List<ViolacaoRestricao> violacoes;
+	private List<Optional<ViolacaoRestricao>> violacoes;
 	
 	/**
 	 * 
 	 * @param violacoes
 	 */
-	public ValidacaoNegocioException(List<ViolacaoRestricao> violacoes) {
+	public ValidacaoNegocioException(List<Optional<ViolacaoRestricao>> violacoes) {
 		this.violacoes = violacoes;
 	}
 }

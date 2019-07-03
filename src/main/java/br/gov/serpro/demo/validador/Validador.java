@@ -5,6 +5,7 @@ package br.gov.serpro.demo.validador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -17,10 +18,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Validador {
 	public void validar(ValidacaoNegocio obj) {
-		List<ViolacaoRestricao> violacoes = obj.validar();
+		List<Optional<ViolacaoRestricao>> violacoes = obj.validar();
 		violacoes = violacoes
 			.stream()
-			.filter(ViolacaoRestricao::isViolacao)
+			.filter(Optional::isPresent)
 			.collect(Collectors.toList());
 		
 		if (!violacoes.isEmpty()) {
@@ -29,8 +30,8 @@ public class Validador {
 		
 	}
 	
-	public static List<ViolacaoRestricao> validadores(List<Supplier<ViolacaoRestricao>> validadores) {
-		List<ViolacaoRestricao> violacoes = new ArrayList<>();
+	public static List<Optional<ViolacaoRestricao>> validadores(List<Supplier<Optional<ViolacaoRestricao>>> validadores) {
+		List<Optional<ViolacaoRestricao>> violacoes = new ArrayList<>();
 		validadores.forEach(supplier -> {
 			violacoes.add(supplier.get());
 		});
