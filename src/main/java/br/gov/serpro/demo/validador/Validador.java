@@ -19,17 +19,22 @@ import org.springframework.stereotype.Component;
 public class Validador {
 	public void validar(ValidacaoNegocio obj) {
 		List<Optional<ViolacaoRestricao>> violacoes = obj.validar();
-		violacoes = violacoes
+		List<ViolacaoRestricao> filtrada = violacoes
 			.stream()
 			.filter(Optional::isPresent)
+			.map(Optional::get)
 			.collect(Collectors.toList());
 		
 		if (!violacoes.isEmpty()) {
-			throw new ValidacaoNegocioException(violacoes);
+			throw new ValidacaoNegocioException(filtrada);
 		}
-		
 	}
 	
+	/**
+	 * 
+	 * @param validadores
+	 * @return
+	 */
 	public static List<Optional<ViolacaoRestricao>> validadores(List<Supplier<Optional<ViolacaoRestricao>>> validadores) {
 		List<Optional<ViolacaoRestricao>> violacoes = new ArrayList<>();
 		validadores.forEach(supplier -> {
