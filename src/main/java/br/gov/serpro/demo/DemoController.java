@@ -49,7 +49,7 @@ public class DemoController {
 	 * @return
 	 */
 	@PostMapping("/demo")
-	public ResponseEntity<Void> inserir(@Valid @RequestBody final DemoEntidade entidade) {
+	public ResponseEntity<Void> inserir(final DemoEntidade entidade) {
 		entidade.setCpf("01456231651");
 		service.inserir(entidade);
 		return ResponseEntity.created(null).build();
@@ -83,10 +83,10 @@ public class DemoController {
 }
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(TransactionSystemException.class)
-	public Map<String, List<String>> handle(TransactionSystemException ex) {
-		ConstraintViolationException root = (ConstraintViolationException)ex.getRootCause();
-		final List<String> mensagens = root.getConstraintViolations()
+	@ExceptionHandler(ConstraintViolationException.class)
+	public Map<String, List<String>> handle(ConstraintViolationException ex) {
+		//ConstraintViolationException root = (ConstraintViolationException)ex.getRootCause();
+		final List<String> mensagens = ex.getConstraintViolations()
 			.stream()
 			.map(ConstraintViolation::getMessage)
 			.collect(Collectors.toList());
