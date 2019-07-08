@@ -32,6 +32,6 @@ public class DemoEntidade {
 	@CPF
 	private String cpf;
 	
-	@NotBlank
+	@NotBlank(message = "{nome.embranco}")
 	private String nome;
 }

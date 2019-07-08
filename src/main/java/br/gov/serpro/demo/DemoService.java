@@ -27,7 +27,7 @@ public class DemoService {
 		final DemoValidacaoNegocio validacaoNegocio = ctx.getBean(
 			DemoValidacaoNegocio.class,
 			entidade);
-		validador.validar(validacaoNegocio);
+		//validador.validar(validacaoNegocio);
 		repositorio.save(entidade);
 	}
 }
