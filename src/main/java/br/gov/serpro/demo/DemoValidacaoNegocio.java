@@ -12,11 +12,11 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.gov.serpro.demo.validador.AbstractValidacaoNegocio;
-import br.gov.serpro.demo.validador.ViolacaoRestricao;
+import br.org.otojunior.validadornegocio.validador.AbstractValidacaoNegocio;
+import br.org.otojunior.validadornegocio.validador.ViolacaoRestricao;
 
 /**
- * @author Oto Soares Coelho Junior (oto.coelho-junior@serpro.gov.br)
+ * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  *
  */
 @Component
@@ -48,7 +48,6 @@ public class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
 	 * @return
 	 */
 	public List<ViolacaoRestricao> validarRegraNegocio01() {
-		// regra 1
 		return Collections.singletonList(ViolacaoRestricao.of("erro1"));
 	}
 	
@@ -57,7 +56,6 @@ public class DemoValidacaoNegocio extends AbstractValidacaoNegocio {
 	 * @return
 	 */
 	public  List<ViolacaoRestricao> validarRegraNegocio02() {
-		// regra 1
 		return Collections.singletonList(ViolacaoRestricao.of("erro2"));
 	}
 }

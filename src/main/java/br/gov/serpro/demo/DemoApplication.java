@@ -1,39 +1,26 @@
 package br.gov.serpro.demo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
-import br.gov.serpro.demo.validador.ValidacaoNegocioException;
+import br.org.otojunior.validadornegocio.validador.SpringBootValidadorApplication;
 
 /**
  * 
- * @author Oto Soares Coelho Junior (oto.coelho-junior@serpro.gov.br)
+ * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  *
  */
 @SpringBootApplication
-public class DemoApplication implements CommandLineRunner {
-	@Autowired
-	private DemoService service;
-
+@ComponentScan(basePackageClasses = {
+	SpringBootValidadorApplication.class,
+	DemoApplication.class})
+public class DemoApplication {
 	/**
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		SpringApplication.run(DemoApplication.class, args);
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void run(String... args) throws Exception {
-		try {
-			service.executar(new DemoEntidade());
-		} catch (ValidacaoNegocioException e) {
-			e.getViolacoes().forEach(System.err::println);
-		}
 	}
 }
